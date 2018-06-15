@@ -38,4 +38,10 @@
     <string name="park7">7</string>
     <string name="park8">8</string>
 
+    <string name="my_orders">My Orders</string>
+    <string name="order">Order</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="not_logged">User not Logged</string>
+
+
 </resources>

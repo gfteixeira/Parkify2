@@ -6,7 +6,11 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -19,8 +23,10 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.view.KeyEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -47,6 +53,11 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
     private static final int REQUEST_READ_CONTACTS = 0;
     public static AppDatabase myAppDB;
     public  DBInitializer dbInit;
+    private DrawerLayout mDrawerLayout;
+
+    private Session session;
+
+
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -74,7 +85,70 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
         //myAppDB.userDao().deleteAll();
         //dbInit = new DBInitializer();
         //dbInit.populateSync(myAppDB);
-        setupActionBar();
+        //setupActionBar();
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp);
+
+        mDrawerLayout = findViewById(R.id.drawer_layout);
+
+        mDrawerLayout.addDrawerListener(
+                new DrawerLayout.DrawerListener() {
+                    @Override
+                    public void onDrawerSlide(View drawerView, float slideOffset) {
+                        // Respond when the drawer's position changes
+                    }
+
+                    @Override
+                    public void onDrawerOpened(View drawerView) {
+                        // Respond when the drawer is opened
+                    }
+
+                    @Override
+                    public void onDrawerClosed(View drawerView) {
+                        // Respond when the drawer is closed
+                    }
+
+                    @Override
+                    public void onDrawerStateChanged(int newState) {
+                        // Respond when the drawer motion state changes
+                    }
+                }
+        );
+
+        NavigationView navigationView = findViewById(R.id.nav_view);
+        navigationView.setNavigationItemSelectedListener(
+                new NavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(MenuItem menuItem) {
+                        // set item as selected to persist highlight
+                        menuItem.setChecked(true);
+
+                        int id = menuItem.getItemId();
+                        switch (id) {
+                            case R.id.order:
+                                mDrawerLayout.closeDrawers();
+
+                                break;
+                            case R.id.my_orders:
+                                mDrawerLayout.closeDrawers();
+
+                                break;
+                            case R.id.sign_out:
+                                Toast toast = Toast.makeText(getApplicationContext(), "User not Logged", Toast.LENGTH_LONG);
+                                toast.show();
+                                break;
+
+                            // Add code here to update the UI based on the item selected
+                            // For example, swap UI fragments here
+                        }
+                        return true;
+                    }});
+
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
         populateAutoComplete();
@@ -101,6 +175,20 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        session = new Session(SignActivity.this);
+
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void populateAutoComplete() {
@@ -209,11 +297,11 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
         }
     }
 
-    public void sendMessage() {
+/*    public void sendMessage() {
         // Do something in response to button
         Intent intent = new Intent(this, OrderActivity.class);
         startActivity(intent);
-    }
+    }*/
 
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
@@ -304,6 +392,12 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
         mEmailView.setAdapter(adapter);
     }
 
+    public void sendMessage(String mail) {
+        Intent intent = new Intent(this, OrderActivity.class);
+        intent.putExtra("mail", mail);
+        startActivity(intent);
+    }
+
 
     private interface ProfileQuery {
         String[] PROJECTION = {
@@ -350,9 +444,10 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
             }*/
 
             // TODO: register the new account here.
+            session.setusename(mEmail);
             User user = new User(mEmail,mPassword);
             myAppDB.userDao().insert(user);
-            sendMessage();
+            sendMessage(mEmail);
             return true;
         }
 
