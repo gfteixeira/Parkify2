@@ -443,7 +443,6 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
                 }
             }*/
 
-            // TODO: register the new account here.
             session.setusename(mEmail);
             User user = new User(mEmail,mPassword);
             myAppDB.userDao().insert(user);

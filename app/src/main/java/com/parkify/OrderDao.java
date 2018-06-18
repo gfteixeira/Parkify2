@@ -25,10 +25,18 @@ public interface OrderDao {
     int countOrders();
 
     @Query("SELECT * FROM `order` where user LIKE  :userName and beginTime >= :thisHour")
-    List<Order> findNewByName(String userName, Date thisDate, Time thisHour);
+    List<Order> findNewByName(String userName, int thisHour);
+/*
+    List<Order> findNewByName(String userName, Date thisDate, int thisHour);
+*/
+
 
     @Query("SELECT * FROM `order` where user LIKE  :userName and beginTime <= :thisHour")
-    List<Order> findOldByName(String userName, Date thisDate, Time thisHour);
+    List<Order> findOldByName(String userName, int thisHour);
+/*
+    List<Order> findOldByName(String userName, Date thisDate, int thisHour);
+*/
+
 
     @Insert
     void insert(Order order);

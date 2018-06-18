@@ -13,14 +13,14 @@ import java.util.Date;
 @Entity(tableName = "order")
 public class Order {
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
     @NonNull
-    private String id;
+    public int id;
 
     @ColumnInfo(name = "number")
     @NonNull
-    private String number;
+    private int number;
 
     @ColumnInfo(name = "date")
     @NonNull
@@ -33,27 +33,29 @@ public class Order {
 
     @ColumnInfo(name = "beginTime")
     @NonNull
-    private Time beginTime;
+    private int beginTime;
 
     @ColumnInfo(name = "endTime")
     @NonNull
-    private Time endTime;
+    private int endTime;
 
     @ColumnInfo(name = "duration")
-    @NonNull
     private String duration;
 
-    public Order(String userName, String number, Date date, Time beginTime, Time endTime, String duration ) {
+    public Order(String userName, int number, Date date, int beginTime, int endTime, String duration ) {
         this.userName = userName;
         this.number = number;
         this.date = date;
         this.beginTime = beginTime;
         this.endTime = endTime;
-        this.id = number+"_"+beginTime.toString();
     }
 
     @Ignore
     public Order() {
+    }
+
+    public void setID(int id) {
+        this.id = id;
     }
 
 
@@ -65,11 +67,11 @@ public class Order {
         this.userName = userName;
     }
 
-    public String getNumber() {
+    public int getNumber() {
         return number;
     }
 
-    public void setNumber(String number) {
+    public void setNumber(int number) {
         this.number = number;
     }
 
@@ -81,23 +83,25 @@ public class Order {
         this.date = date;
     }
 
-    public Time getBeginTime() { return beginTime; }
+    public int getBeginTime() { return beginTime; }
 
-    public void setBeginTime(Time beginTime) {
+    public void setBeginTime(int beginTime) {
         this.beginTime = beginTime;
     }
 
-    public Time getEndTime() {
+    public int getEndTime() {
         return endTime;
     }
 
-    public void setEndTime(Time endTime) {
+    public void setEndTime(int endTime) {
         this.endTime = endTime;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
+
+
 
     public String getDuration() {
         return duration;

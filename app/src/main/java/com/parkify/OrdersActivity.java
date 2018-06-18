@@ -16,6 +16,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Collections;
+import java.util.List;
+
 public class OrdersActivity extends AppCompatActivity {
 
 
@@ -24,16 +27,23 @@ public class OrdersActivity extends AppCompatActivity {
         TextView textViewEmail;
         View mHeaderView;
         private Session session;
+    public static AppDatabase myAppDB;
 
 
 
-        @Override
+
+    @Override
         protected void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
 
             setContentView(R.layout.activity_orders);
 
-            Toolbar toolbar = findViewById(R.id.toolbar);
+        myAppDB = AppDatabase.getAppDatabase(getApplicationContext());
+        ListView listView = (ListView) findViewById(R.id.listOrders);
+
+
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
             setSupportActionBar(toolbar);
 
             ActionBar actionbar = getSupportActionBar();
@@ -112,6 +122,8 @@ public class OrdersActivity extends AppCompatActivity {
 
             textViewEmail.setText(session.getusename());
 
+            populateListView(listView);
+
 
         }
 
@@ -124,6 +136,25 @@ public class OrdersActivity extends AppCompatActivity {
             }
             return super.onOptionsItemSelected(item);
         }
+
+    private void populateListView(ListView listView){
+        List<Order> a = myAppDB.orderDao().findAllByName(session.getusename());
+
+        /*Order[] orders = a.toArray(new Order[a.size()]);;
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.listview_parking_numbers, Collections.singletonList(orders.toString()));*/
+
+        Order[] orders = a.toArray(new Order[a.size()]);;
+
+        String[] b = new String[a.size()];
+
+        for(int i =0; i<a.size();i++){
+            b[i] = "" + orders[i].getNumber() + " "+ orders[i].getDate() + " " + orders[i].getBeginTime() + " " + orders[i].getEndTime();
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.listview_parking_numbers, b);
+        listView.setAdapter(adapter);
+    }
 
 
     }

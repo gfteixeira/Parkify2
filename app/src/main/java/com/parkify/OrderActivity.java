@@ -118,12 +118,12 @@ public class OrderActivity extends AppCompatActivity {
         mHeaderView =  navigationView.getHeaderView(0);
 
 
-        Intent intent = getIntent();
+        Intent intent2 = getIntent();
 
         textViewEmail = (TextView) mHeaderView.findViewById(R.id.loggedUsername);
 
 
-        textViewEmail.setText(intent.getExtras().getString("mail"));
+        textViewEmail.setText(intent2.getExtras().getString("mail"));
 
 
         populateListView(listView);
@@ -141,7 +141,7 @@ public class OrderActivity extends AppCompatActivity {
                 /*timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
                 int hour = timePicker1.getCurrentHour();
                 int min = timePicker1.getCurrentMinute();*/
-                sendMessage();
+                sendMessage(position);
             }
         });
 
@@ -170,8 +170,10 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    public void sendMessage() {
-        Intent intent = new Intent(this, DateOrderActivity.class);
-        startActivity(intent);
+    public void sendMessage(int position) {
+            Intent intent = new Intent(this, OrderDateTime.class);
+            intent.putExtra("position",position);
+            startActivity(intent);
+
     }
 }
