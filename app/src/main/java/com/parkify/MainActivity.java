@@ -35,22 +35,18 @@ public class MainActivity extends AppCompatActivity {
                 new DrawerLayout.DrawerListener() {
                     @Override
                     public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
                     }
 
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
                     }
 
                     @Override
                     public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
                     }
 
                     @Override
                     public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
                     }
                 }
         );
@@ -60,10 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
                         menuItem.setChecked(true);
-                        // close drawer when item is tapped
-                       // mDrawerLayout.closeDrawers();
 
                         int id = menuItem.getItemId();
                         switch (id) {
@@ -80,8 +73,6 @@ public class MainActivity extends AppCompatActivity {
                                 toast.show();
                                 break;
 
-                            // Add code here to update the UI based on the item selected
-                            // For example, swap UI fragments here
                         }
                         return true;
                     }});
@@ -98,29 +89,14 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /** Called when the user taps the Send button */
     public void sendMessage(View view) {
-        // Do something in response to button
         Intent intent = new Intent(this, SignActivity.class);
-        /*EditText editText = (EditText) findViewById(R.id.editText);
-        String message = editText.getText().toString();
-
-        intent.putExtra(EXTRA_MESSAGE, message);*/
         startActivity(intent);
     }
 
     public void sendMessageLogin(View view) {
-        // Do something in response to button
         Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
-/*    @Override
-    public void onBackPressed(DrawerLayout drsawerLayout) {
-        if (this.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            this.drawerLayout.closeDrawer(GravityCompat.START);
-        } else {
-            super.onBackPressed();
-        }
-    }*/
 }

@@ -19,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class OrderActivity extends AppCompatActivity {
 
@@ -32,20 +33,8 @@ public class OrderActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
-
-        /*mHeaderView =  mNavigationView.getHeaderView(0);
-
-
-        Intent intent = getIntent();
-
-        textViewEmail = (TextView) mHeaderView.findViewById(R.id.loggedUsername);
-
-
-        textViewEmail.setText(intent.getExtras().getString("mail"));*/
-
         setContentView(R.layout.activity_order);
+
         ListView listView = (ListView) findViewById(R.id.listItems);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
@@ -62,22 +51,18 @@ public class OrderActivity extends AppCompatActivity {
                 new DrawerLayout.DrawerListener() {
                     @Override
                     public void onDrawerSlide(View drawerView, float slideOffset) {
-                        // Respond when the drawer's position changes
                     }
 
                     @Override
                     public void onDrawerOpened(View drawerView) {
-                        // Respond when the drawer is opened
                     }
 
                     @Override
                     public void onDrawerClosed(View drawerView) {
-                        // Respond when the drawer is closed
                     }
 
                     @Override
                     public void onDrawerStateChanged(int newState) {
-                        // Respond when the drawer motion state changes
                     }
                 }
         );
@@ -87,7 +72,6 @@ public class OrderActivity extends AppCompatActivity {
                 new NavigationView.OnNavigationItemSelectedListener() {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        // set item as selected to persist highlight
                         menuItem.setChecked(true);
 
                         int id = menuItem.getItemId();
@@ -104,26 +88,28 @@ public class OrderActivity extends AppCompatActivity {
                                 Intent intent2 = new Intent(OrderActivity.this, MainActivity.class);
                                 startActivity(intent2);
                                 break;
-
-                            // Add code here to update the UI based on the item selected
-                            // For example, swap UI fragments here
                         }
 
-                        // Add code here to update the UI based on the item selected
-                        // For example, swap UI fragments here
 
                         return true;
-                    }});
+                    }
+                });
 
-        mHeaderView =  navigationView.getHeaderView(0);
+        mHeaderView = navigationView.getHeaderView(0);
 
+        session = new Session(OrderActivity.this);
 
         Intent intent2 = getIntent();
+        String a = intent2.getExtras().getString("intentSource");
+
+
+        if (a != null && a.equals("TimeExit")) {
+            Toast.makeText(getApplicationContext(), "Order not possible. Choose a different initial hour or a different parking place.", Toast.LENGTH_LONG).show();
+        }
 
         textViewEmail = (TextView) mHeaderView.findViewById(R.id.loggedUsername);
 
-
-        textViewEmail.setText(intent2.getExtras().getString("mail"));
+        textViewEmail.setText(session.getusename());
 
 
         populateListView(listView);
@@ -133,22 +119,10 @@ public class OrderActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view,
                                     int position, long id) {
                 TextView textView = (TextView) view;
-                String msg = "You clicked # " + position
-                        + ", which is string: " + textView.getText().toString();
-               /* Toast.makeText(getApplicationContext(),
-                        "Click ListItem Number " + position, Toast.LENGTH_LONG)
-                        .show();*/
-                /*timePicker1 = (TimePicker) findViewById(R.id.timePicker1);
-                int hour = timePicker1.getCurrentHour();
-                int min = timePicker1.getCurrentMinute();*/
-                sendMessage(position);
+                sendMessage(position + 1);
             }
         });
 
-        session = new Session(OrderActivity.this);
-/*
-       String a= session.getusename();
-*/
 
     }
 
@@ -163,17 +137,17 @@ public class OrderActivity extends AppCompatActivity {
     }
 
 
-    private void populateListView(ListView listView){
-        String[] parkingNumbers = {"1","2","3","4","5","6","7","8"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,R.layout.listview_parking_numbers,parkingNumbers);
+    private void populateListView(ListView listView) {
+        String[] parkingNumbers = {"Place 1", "Place 2", "Place 3", "Place 4", "Place 5", "Place 6", "Place 7", "Place 8"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.listview_parking_numbers, parkingNumbers);
         listView.setAdapter(adapter);
     }
 
 
     public void sendMessage(int position) {
-            Intent intent = new Intent(this, OrderDateTime.class);
-            intent.putExtra("position",position);
-            startActivity(intent);
+        Intent intent = new Intent(this, OrderDateTime.class);
+        intent.putExtra("position", position);
+        startActivity(intent);
 
     }
 }

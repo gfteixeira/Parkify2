@@ -33,9 +33,15 @@ public interface OrderDao {
 
     @Query("SELECT * FROM `order` where user LIKE  :userName and beginTime <= :thisHour")
     List<Order> findOldByName(String userName, int thisHour);
-/*
-    List<Order> findOldByName(String userName, Date thisDate, int thisHour);
-*/
+
+    /*
+        List<Order> findOldByName(String userName, Date thisDate, int thisHour);
+    */
+    @Query("SELECT * FROM `order`  where number LIKE  :number")
+    List<Order> findOrdersByPlace(int number);
+
+    @Query("SELECT * FROM `order`  where number LIKE  :number and date LIKE :thisDate and ((beginTime <= :beginTimeQuery and :beginTimeQuery<=endTime) or (beginTime <= :endTimeQuery and :endTimeQuery<=endTime)) ")
+    List<Order> findOrdersByPlaceAndTime(int number, String thisDate, int beginTimeQuery, int endTimeQuery);
 
 
     @Insert

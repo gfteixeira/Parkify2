@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "c1475dea67581026d16722ff9c562b68",
+    "identityHash": "10f869fd8c87e214a3b422d12130ba69",
     "entities": [
       {
         "tableName": "user",
@@ -32,7 +32,7 @@
       },
       {
         "tableName": "order",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` INTEGER NOT NULL, `date` INTEGER NOT NULL, `user` TEXT NOT NULL, `beginTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL, `duration` TEXT)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `number` INTEGER NOT NULL, `date` TEXT NOT NULL, `user` TEXT NOT NULL, `beginTime` INTEGER NOT NULL, `endTime` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -49,7 +49,7 @@
           {
             "fieldPath": "date",
             "columnName": "date",
-            "affinity": "INTEGER",
+            "affinity": "TEXT",
             "notNull": true
           },
           {
@@ -69,12 +69,6 @@
             "columnName": "endTime",
             "affinity": "INTEGER",
             "notNull": true
-          },
-          {
-            "fieldPath": "duration",
-            "columnName": "duration",
-            "affinity": "TEXT",
-            "notNull": false
           }
         ],
         "primaryKey": {
@@ -89,7 +83,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"c1475dea67581026d16722ff9c562b68\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"10f869fd8c87e214a3b422d12130ba69\")"
     ]
   }
 }

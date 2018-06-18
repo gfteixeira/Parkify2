@@ -24,8 +24,8 @@ public class Order {
 
     @ColumnInfo(name = "date")
     @NonNull
-    @TypeConverters(DateConverter.class)
-    private Date date;
+    //  @TypeConverters(DateConverter.class)
+    private String date;
 
     @ColumnInfo(name = "user")
     @NonNull
@@ -39,10 +39,8 @@ public class Order {
     @NonNull
     private int endTime;
 
-    @ColumnInfo(name = "duration")
-    private String duration;
 
-    public Order(String userName, int number, Date date, int beginTime, int endTime, String duration ) {
+    public Order(String userName, int number, String date, int beginTime, int endTime) {
         this.userName = userName;
         this.number = number;
         this.date = date;
@@ -75,15 +73,17 @@ public class Order {
         this.number = number;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 
-    public int getBeginTime() { return beginTime; }
+    public int getBeginTime() {
+        return beginTime;
+    }
 
     public void setBeginTime(int beginTime) {
         this.beginTime = beginTime;
@@ -100,17 +100,6 @@ public class Order {
     public int getId() {
         return id;
     }
-
-
-
-    public String getDuration() {
-        return duration;
-    }
-
-    public void setDuration(String duration) {
-        this.duration = duration;
-    }
-
 
 
 }

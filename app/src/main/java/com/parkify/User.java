@@ -11,50 +11,7 @@ import android.support.annotation.NonNull;
 import java.util.Date;
 import java.util.UUID;
 
-/*
-@Entity(tableName = "users")
-public class com.parkify.User {
-
-    @PrimaryKey
-    @ColumnInfo(name = "username")
-    private String uUserName;
-
-    @ColumnInfo(name = "password")
-    private String uPassword;
-
-    @ColumnInfo(name = "last_update")
-    @TypeConverters(DateConverter.class)
-    private Date uDate;
-
-
-    public com.parkify.User(){
-
-    }
-    @Ignore
-    public com.parkify.User(String userName, @NonNull String password) {
-        this.uPassword = password;
-        this.uUserName = userName;
-        uDate = new Date(System.currentTimeMillis());    }
-
-    public String getUserName() {
-        return uUserName;
-    }
-
-    public void setUserName(String userName) {
-        this.uUserName = userName;
-    }
-
-    public String getPasswrod() {
-        return uPassword;
-    }
-
-    public void setPasswrod(String passwrod) {
-        this.uPassword = passwrod;
-    }
-
-*/
-
-@Entity (tableName = "user")
+@Entity(tableName = "user")
 public class User {
 
 

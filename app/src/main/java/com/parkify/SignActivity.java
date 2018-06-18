@@ -52,11 +52,10 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
      */
     private static final int REQUEST_READ_CONTACTS = 0;
     public static AppDatabase myAppDB;
-    public  DBInitializer dbInit;
+    public DBInitializer dbInit;
     private DrawerLayout mDrawerLayout;
 
     private Session session;
-
 
 
     /**
@@ -147,7 +146,8 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
                             // For example, swap UI fragments here
                         }
                         return true;
-                    }});
+                    }
+                });
 
         // Set up the login form.
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -170,7 +170,7 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
             @Override
             public void onClick(View view) {
                 attemptLogin();
-                           }
+            }
         });
 
         mLoginFormView = findViewById(R.id.login_form);
@@ -444,7 +444,7 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
             }*/
 
             session.setusename(mEmail);
-            User user = new User(mEmail,mPassword);
+            User user = new User(mEmail, mPassword);
             myAppDB.userDao().insert(user);
             sendMessage(mEmail);
             return true;
@@ -470,4 +470,3 @@ public class SignActivity extends AppCompatActivity implements LoaderCallbacks<C
         }
     }
 }
-

@@ -63,24 +63,23 @@
                 android:value="com.parkify.OrderActivity" />
         </activity>
         <activity
-            android:name=".HourBeginOrderActivity"
+            android:name=".OrderDateTime"
             android:label="@string/title_activity_order"
-            android:parentActivityName=".DateOrderActivity">
+            android:parentActivityName=".OrderActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.parkify.DateOrderActivity" />
+                android:value="com.parkify.OrderActivity" />
         </activity>
-        <activity
-            android:name=".HourEndOrderActivity"
-            android:label="@string/title_activity_order"
-            android:parentActivityName=".HourBeginOrderActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.parkify.HourBeginOrderActivity" />
-        </activity>
-        <activity android:name=".OrderDateTime" />
 
-        <activity android:name=".OrderDateTimeExit" />
+        <activity
+            android:name=".OrderDateTimeExit"
+            android:label="@string/title_activity_order"
+            android:parentActivityName=".OrderDateTime">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.parkify.OrderDateTime" />
+        </activity>
+        />
     </application>
 
 
