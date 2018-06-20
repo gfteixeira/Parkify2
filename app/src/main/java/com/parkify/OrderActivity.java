@@ -150,4 +150,10 @@ public class OrderActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
+
+    public void sendMessageRandom(View view) {
+        Intent intent = new Intent(this, OrderDateTime.class);
+        intent.putExtra("position", 0);
+        startActivity(intent);
+    }
 }

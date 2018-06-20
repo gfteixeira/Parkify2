@@ -41,5 +41,8 @@
     <string name="sign_out">Sign Out</string>
     <string name="not_logged">User not Logged</string>
 
+    <string name="or">Or</string>
+    <string name="orderRandom">Choose Place based on Hour and Date</string>
+
 
 </resources>

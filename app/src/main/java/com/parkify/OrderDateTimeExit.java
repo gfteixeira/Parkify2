@@ -160,6 +160,7 @@ public class OrderDateTimeExit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 confirmOrder();
+
             }
         });
 
@@ -226,18 +227,43 @@ public class OrderDateTimeExit extends AppCompatActivity {
         /*Order order = new Order(session.getusename(),position, hours[0], hourBegin, Integer.parseInt(hour[0]));*/
         String actualDate = "'" + dateBegin + "'";
 
-        Order order = new Order(session.getusename(), position, actualDate, hourBegin, Integer.parseInt(hour[0]));
+        if(position==0){
+            boolean ordered = false;
+            for(int i=1; i<=8;i++){
+                List<Order> listOrders = myAppDB.orderDao().findOrdersByPlaceAndTime(i, actualDate, hourBegin, Integer.parseInt(hour[0]));
+                if (listOrders.size()==0){
+                    Order order = new Order(session.getusename(), i, actualDate, hourBegin, Integer.parseInt(hour[0]));
+                    myAppDB.orderDao().insert(order);
+                    Intent intent = new Intent(this, OrdersActivity.class);
+                    startActivity(intent);
+                    position = i;
+                    ordered =true;
+                    break;
+                }
+            }
 
-        List<Order> listOrders = myAppDB.orderDao().findOrdersByPlaceAndTime(position, actualDate, hourBegin, Integer.parseInt(hour[0]));
-        if (listOrders.size() == 0) {
-            myAppDB.orderDao().insert(order);
-            Intent intent = new Intent(this, OrdersActivity.class);
-            startActivity(intent);
-        } else {
-            Intent intentElse = new Intent(this, OrderActivity.class);
-            intentElse.putExtra("intentSource", "TimeExit");
-            startActivity(intentElse);
+            if (ordered ==false){
+                Intent intentElse = new Intent(this, OrderActivity.class);
+                intentElse.putExtra("intentSource", "TimeExit");
+                startActivity(intentElse);
+            }
+
         }
 
+        else {
+
+            Order order = new Order(session.getusename(), position, actualDate, hourBegin, Integer.parseInt(hour[0]));
+
+            List<Order> listOrders = myAppDB.orderDao().findOrdersByPlaceAndTime(position, actualDate, hourBegin, Integer.parseInt(hour[0]));
+            if (listOrders.size() == 0) {
+                myAppDB.orderDao().insert(order);
+                Intent intent = new Intent(this, OrdersActivity.class);
+                startActivity(intent);
+            } else {
+                Intent intentElse = new Intent(this, OrderActivity.class);
+                intentElse.putExtra("intentSource", "TimeExit");
+                startActivity(intentElse);
+            }
+        }
     }
 }
