@@ -136,6 +136,11 @@ public class OrdersActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
     }
 
+    public void light(View view) {
+        OpenConnection connection = new OpenConnection("192.168.1.4", "8080", "LO", OrdersActivity.this);
+        connection.execute();
+    }
+
 
 }
 

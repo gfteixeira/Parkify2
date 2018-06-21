@@ -43,6 +43,8 @@
 
     <string name="or">Or</string>
     <string name="orderRandom">Choose Place based on Hour and Date</string>
+    <string name="lightGarage">Turn light on</string>
+
 
 
 </resources>
