@@ -238,6 +238,8 @@ public class OrderDateTimeExit extends AppCompatActivity {
                     startActivity(intent);
                     position = i;
                     ordered =true;
+                    OpenConnection connection = new OpenConnection("192.168.1.4", "8080", "LR", OrderDateTimeExit.this);
+                    connection.execute();
                     break;
                 }
             }
@@ -257,6 +259,8 @@ public class OrderDateTimeExit extends AppCompatActivity {
             List<Order> listOrders = myAppDB.orderDao().findOrdersByPlaceAndTime(position, actualDate, hourBegin, Integer.parseInt(hour[0]));
             if (listOrders.size() == 0) {
                 myAppDB.orderDao().insert(order);
+                OpenConnection connection = new OpenConnection("192.168.1.4", "8080", "LR", OrderDateTimeExit.this);
+                connection.execute();
                 Intent intent = new Intent(this, OrdersActivity.class);
                 startActivity(intent);
             } else {

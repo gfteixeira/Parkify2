@@ -102,16 +102,10 @@ public class OrdersActivity extends AppCompatActivity {
 
         mHeaderView = navigationView.getHeaderView(0);
 
-
         Intent intent = getIntent();
-
         textViewEmail = (TextView) mHeaderView.findViewById(R.id.loggedUsername);
-
         session = new Session(com.parkify.OrdersActivity.this);
-
-
         textViewEmail.setText(session.getusename());
-
         populateListView(listView);
 
 
@@ -131,7 +125,6 @@ public class OrdersActivity extends AppCompatActivity {
         List<Order> a = myAppDB.orderDao().findAllByName(session.getusename());
 
         Order[] orders = a.toArray(new Order[a.size()]);
-        ;
 
         String[] b = new String[a.size()];
 

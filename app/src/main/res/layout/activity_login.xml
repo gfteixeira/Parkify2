@@ -27,6 +27,7 @@
                 android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
 
+
         </FrameLayout>
 
         <android.support.design.widget.NavigationView
@@ -103,6 +104,16 @@
                 android:text="@string/action_log_in"
                 android:textStyle="bold"
                 tools:ignore="OnClick" />
+
+
+            <TextView
+                android:id="@+id/tvSignUp"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:text="Don't have Account? Sign Up"
+                android:textSize="18sp" />
 
 
         </LinearLayout>

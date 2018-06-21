@@ -54,6 +54,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private TextView textViewSignUp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,6 +144,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         session = new Session(LoginActivity.this);
 
+        textViewSignUp = findViewById(R.id.tvSignUp);
+
+        textViewSignUp.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                goToSignUp(view);
+
+            }
+        });
+
+    }
+
+    public void goToSignUp(View view){
+        Intent intent = new Intent(this, SignActivity.class);
+        startActivity(intent);
     }
 
 
